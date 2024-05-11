@@ -1,12 +1,11 @@
 // import React from 'react';
 import { Fragment } from "react";
+import Navbar from "./Navbar";
 
 const Dashboard = () => {
     return (
         <Fragment>
-            <h1>
-            DASHBOARD
-            </h1>
+            <Navbar />
         </Fragment>
     )
 };

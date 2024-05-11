@@ -6,9 +6,11 @@ const Signup = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const NODE_URL = `http://localhost:4000`;
 
-  const handleSignup = async () => {
+  const handleSignup = async (e) => {
+    e.preventDefault();
     try {
       const response = await fetch(`${NODE_URL}/signup`, {
         method: 'POST',
@@ -18,14 +20,13 @@ const Signup = () => {
         body: JSON.stringify({ email, password })
       });
 
-      // const data = await response.JSON();
+      // console.log(response.JSON());
 
       if (response.ok) {
         navigate('/dashboard');
+      } else {
+        setErrorMessage("Email already exists");
       }
-      // else {
-
-      // }
     } 
     catch (error) {
       console.error('Error logging in:', error);
@@ -49,6 +50,11 @@ const Signup = () => {
           <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form className="space-y-6" action="#" method="POST">
               <div>
+                {errorMessage} && (
+                <p className="block text-sm font-medium leading-6 text-red-500">
+                  {errorMessage}
+                </p>
+                )
                 <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                   Email address
                 </label>
